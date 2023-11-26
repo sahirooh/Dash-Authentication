@@ -1,11 +1,26 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
+import { object, string, ref } from "yup";
+
+const validationSchema = object({
+  firstName: string().required("First Name is required"),
+  lastName: string().required("Last Name is required"),
+  email: string().required("Email is required").email("Email is invalid"),
+  password: string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  repeatPassword: string()
+    .oneOf([ref("password"), null], "Passwords must match")
+    .required("Retype Password"),
+});
 
 const SignUp = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div className="flex justify-center h-[100vh] items-center">
-      <div className="shadow-2xl hover:shadow-inner rounded-2xl p-4 flex flex-col gap-4">
+      <div className="sm:shadow-2xl shadow-none hover:shadow-inner rounded-2xl p-4 flex flex-col gap-4">
         <div className="grid gap-1">
           <h1 className="font-medium text-3xl">Welcome to Crypto App</h1>
           <p className="text-sm text-gray-500">
@@ -24,6 +39,7 @@ const SignUp = () => {
           onSubmit={(values) => {
             console.log(values);
           }}
+          validationSchema={validationSchema}
         >
           {() => (
             <Form>
@@ -42,6 +58,7 @@ const SignUp = () => {
                           placeholder="James"
                           className="border w-auto flex rounded-md px-2 py-1"
                         />
+                        <h1>{meta.error}</h1>
                       </div>
                     )}
                   </Field>
@@ -58,6 +75,7 @@ const SignUp = () => {
                           placeholder="Bond"
                           className="border rounded-md px-2 py-1"
                         />
+                        <h1>{meta.error}</h1>
                       </div>
                     )}
                   </Field>
@@ -75,6 +93,7 @@ const SignUp = () => {
                         placeholder="name@mail.com"
                         className="border rounded-md px-2 py-1"
                       />
+                      <h1>{meta.error}</h1>
                     </div>
                   )}
                 </Field>
@@ -83,15 +102,22 @@ const SignUp = () => {
                   {({ field, meta }) => (
                     <div
                       isInvalid={!!(meta.error && meta.touched)}
-                      className="flex flex-col"
+                      className="flex relative flex-col"
                     >
                       <label>Password</label>
-                      <input
-                        {...field}
-                        type="password"
-                        placeholder="Choose Password"
-                        className="border rounded-md px-2 py-1"
-                      />
+                        <input
+                          {...field}
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Choose Password"
+                          className="border  rounded-md px-2 py-1"
+                        />
+                        <span
+                          className="absolute right-2 top-7 cursor-pointer"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? "🙈" : "👁️"}
+                        </span>
+                      <h1>{meta.error}</h1>
                     </div>
                   )}
                 </Field>
@@ -109,11 +135,11 @@ const SignUp = () => {
                         placeholder="Retype Password"
                         className="border rounded-md px-2 py-1"
                       />
+                      <h1>{meta.error}</h1>
                     </div>
                   )}
                 </Field>
 
-                
                 <div>
                   <input
                     type="checkbox"
