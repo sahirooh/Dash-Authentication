@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { object, string } from "yup";
+import { useMutation } from "react-query";
+import { signinUser } from "../../../api/query/userQuery";
+import { ToastContainer, toast } from "react-toastify";
 
 const validationSchema = object({
   email: string().required("Email is required").email("Email is invalid"),
@@ -14,8 +17,18 @@ const validationSchema = object({
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
 
+  const {mutate, isLoading} = useMutation({
+    mutationKey: ["signin"],
+    mutationFn: signinUser,
+    onSuccess: (data) => {},
+    onError: (error) => {
+      toast.error("An error occurred: " + error.message);
+    }
+  })
+
+
   return (
-    <div className="flex justify-center h-[100vh] items-center">
+    <div className="flex flex-col justify-center h-[100vh] items-center">
       <div className="sm:shadow-2xl shadow-none hover:shadow-inner rounded-2xl p-8 flex flex-col gap-6">
         <div className="grid gap-1">
           <h1 className="font-medium text-3xl">Welcome to Crypto App</h1>
@@ -30,7 +43,7 @@ const SignIn = () => {
             password: "",
           }}
           onSubmit={(values) => {
-            console.log(values);
+            mutate(values);
           }}
           validationSchema={validationSchema}
         >
@@ -90,13 +103,14 @@ const SignIn = () => {
                       Remember me
                     </label>
                   </div>
-                  <Link to={'/password-reset'}>
+                  <Link to={"/password-reset"}>
                     <p className="text-purple-500">Forgot Password?</p>
                   </Link>
                 </div>
                 <div className="flex flex-col gap-2 justify-center">
                   <button
                     type="submit"
+                    isLoading={isLoading}
                     className="bg-purple-600 hover:ease-in hover:bg-purple-800 text-white flex-grow rounded-lg p-2"
                   >
                     Log In
@@ -107,7 +121,6 @@ const SignIn = () => {
                     </button>
                   </Link>
                 </div>
-                
               </div>
             </Form>
           )}

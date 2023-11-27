@@ -1,12 +1,22 @@
-import React from "react";
 import Navigation from "../../components/Navigation";
 import Header from "../../components/Header";
 import Portfolio from "./Components/Portfolio";
 import PriceSection from "./Components/PriceSection";
 import Transactions from "./Components/Transactions";
 import InfoCard from "./Components/InfoCard";
+import { fetchExample } from "../../api/query/exampleQuery";
+import { useQuery } from "react-query";
 
 const Dashboard = () => {
+
+const exampleQuery = useQuery({
+  queryKey: ["example"],
+  queryFn: fetchExample,
+})
+
+if (exampleQuery.isLoading) return <div>Loading...</div>
+
+
   return (
     <div className="flex">
       

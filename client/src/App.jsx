@@ -10,6 +10,8 @@ import RecoverPassword from './pages/Auth/RecoverPassword/RecoverPassword';
 import ResetPasswordSent from './pages/Auth/ResetPasswordSent/ResetPasswordSent';
 import NewPassword from './pages/Auth/NewPassword/NewPassword';
 import PasswordResetDone from './pages/Auth/PasswordResetDone/PasswordResetDone';
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const router = createBrowserRouter([
   {
@@ -59,11 +61,17 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+
+
+
+  const queryClient = new QueryClient();
+
   return (
-    <div>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-    </div>
-  )
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 }
 
 export default App
