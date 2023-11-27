@@ -4,6 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SupportPage from "./pages/Support/SupportPage";
 import SignUp from './pages/Auth/SignUp/SignUp';
 import SignIn from './pages/Auth/SignIn/SignIn';
+import VerifyEmail from './pages/Auth/VerifyEmail/VerifyEmail';
+import VerifySuccess from './pages/Auth/VerifySuccess/VerifySuccess';
+import RecoverPassword from './pages/Auth/RecoverPassword/RecoverPassword';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,18 @@ const router = createBrowserRouter([
   {
     path: "/signin",
     element: <SignIn />,
+  },
+  {
+    path: "/verify-email",
+    element: <VerifyEmail />,
+  },
+  {
+    path: "/verify-success",
+    element: <VerifySuccess />,
+  },
+  {
+    path: "/password-reset",
+    element: <RecoverPassword />,
   },
 ]);
 

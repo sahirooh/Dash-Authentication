@@ -15,6 +15,7 @@ const validationSchema = object({
     .required("Retype Password"),
 });
 
+
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -58,7 +59,7 @@ const SignUp = () => {
                           placeholder="James"
                           className="border w-auto flex rounded-md px-2 py-1"
                         />
-                        <h1>{meta.error}</h1>
+                        <h1 className="text-red-500">{meta.error}</h1>
                       </div>
                     )}
                   </Field>
@@ -75,7 +76,7 @@ const SignUp = () => {
                           placeholder="Bond"
                           className="border rounded-md px-2 py-1"
                         />
-                        <h1>{meta.error}</h1>
+                        <h1 className="text-red-500">{meta.error}</h1>
                       </div>
                     )}
                   </Field>
@@ -93,7 +94,7 @@ const SignUp = () => {
                         placeholder="name@mail.com"
                         className="border rounded-md px-2 py-1"
                       />
-                      <h1>{meta.error}</h1>
+                      <h1 className="text-red-500">{meta.error}</h1>
                     </div>
                   )}
                 </Field>
@@ -117,7 +118,7 @@ const SignUp = () => {
                         >
                           {showPassword ? "🙈" : "👁️"}
                         </span>
-                      <h1>{meta.error}</h1>
+                      <h1 className="text-red-500">{meta.error}</h1>
                     </div>
                   )}
                 </Field>
@@ -132,10 +133,10 @@ const SignUp = () => {
                       <input
                         {...field}
                         type="password"
-                        placeholder="Retype Password"
+                        placeholder="Re-type Password"
                         className="border rounded-md px-2 py-1"
                       />
-                      <h1>{meta.error}</h1>
+                      <h1 className="text-red-500">{meta.error}</h1>
                     </div>
                   )}
                 </Field>

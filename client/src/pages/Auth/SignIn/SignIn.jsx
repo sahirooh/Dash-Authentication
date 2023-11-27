@@ -16,7 +16,7 @@ const SignIn = () => {
 
   return (
     <div className="flex justify-center h-[100vh] items-center">
-      <div className="sm:shadow-2xl shadow-none hover:shadow-inner rounded-2xl p-4 flex flex-col gap-4">
+      <div className="sm:shadow-2xl shadow-none hover:shadow-inner rounded-2xl p-8 flex flex-col gap-6">
         <div className="grid gap-1">
           <h1 className="font-medium text-3xl">Welcome to Crypto App</h1>
           <p className="text-sm text-gray-500">
@@ -79,16 +79,20 @@ const SignIn = () => {
                   )}
                 </Field>
 
-                <div>
-                  <input
-                    type="checkbox"
-                    id="form-checkbox"
-                    className="opacity-50"
-                  />
-                  <label htmlFor="form-checkbox" className="ml-1">
-                    I agree to the{" "}
-                    <span className="text-purple-700">terms of service</span>
-                  </label>
+                <div className="flex justify-between">
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="form-checkbox"
+                      className="opacity-50"
+                    />
+                    <label htmlFor="form-checkbox" className="ml-1">
+                      Remember me
+                    </label>
+                  </div>
+                  <Link to={'/password-reset'}>
+                    <p className="text-purple-500">Forgot Password?</p>
+                  </Link>
                 </div>
                 <div className="flex flex-col gap-2 justify-center">
                   <button
@@ -103,12 +107,7 @@ const SignIn = () => {
                     </button>
                   </Link>
                 </div>
-                <p className="flex justify-center">
-                  Already have an account?{" "}
-                  <Link to={"/signin"}>
-                    <span className="text-purple-700">Log In</span>
-                  </Link>
-                </p>
+                
               </div>
             </Form>
           )}
