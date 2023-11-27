@@ -7,6 +7,9 @@ import SignIn from './pages/Auth/SignIn/SignIn';
 import VerifyEmail from './pages/Auth/VerifyEmail/VerifyEmail';
 import VerifySuccess from './pages/Auth/VerifySuccess/VerifySuccess';
 import RecoverPassword from './pages/Auth/RecoverPassword/RecoverPassword';
+import ResetPasswordSent from './pages/Auth/ResetPasswordSent/ResetPasswordSent';
+import NewPassword from './pages/Auth/NewPassword/NewPassword';
+import PasswordResetDone from './pages/Auth/PasswordResetDone/PasswordResetDone';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +43,18 @@ const router = createBrowserRouter([
   {
     path: "/password-reset",
     element: <RecoverPassword />,
+  },
+  {
+    path: "/password-reset-sent",
+    element: <ResetPasswordSent />,
+  },
+  {
+    path: "/new-password",
+    element: <NewPassword />,
+  },
+  {
+    path: "/password-reset-done",
+    element: <PasswordResetDone />,
   },
 ]);
 
