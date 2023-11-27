@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const NewPassword = () => {
+    
   return (
     <div className="grid justify-center h-[100vh] items-center">
       <div className="p-8 flex min-w-[410px] font-medium flex-col gap-6 rounded-lg shadow-2xl">
@@ -25,7 +26,7 @@ const NewPassword = () => {
             type="password"
           />
         </div>
-        
+
         <Link to={'/password-reset-done'}>
             <button className="bg-[#EEEEF4] rounded-lg py-2 w-full">
               Reset Password
