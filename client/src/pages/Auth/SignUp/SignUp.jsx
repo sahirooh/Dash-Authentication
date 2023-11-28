@@ -18,26 +18,31 @@ const validationSchema = object({
     .required("Retype Password"),
 });
 
-
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-const { mutate, isLoading } = useMutation({
-  mutationKey: ["signup"],
-  mutationFn: signupUser,
-  onSuccess: (data) => {
-    navigate("/verify-email");
-  },
-  onError: (error) => {
-    toast.error("An error occurred: " + error.message, {
-      position: "bottom-center",
-      closeButton: false,
-      description: "Please try again later",
-      theme: "colored",
-    });
-  },
-});
+  const { mutate, isLoading } = useMutation({
+    mutationKey: ["signup"],
+    mutationFn: signupUser,
+    onSuccess: (data) => {
+      
+      if (email) {
+        navigate("/verify-email", {
+          state: { email },
+        });
+      }
+    },
+    onError: (error) => {
+      toast.error("An error occurred: " + error.message, {
+        position: "bottom-center",
+        closeButton: false,
+        description: "Please try again later",
+        theme: "colored",
+      });
+    },
+  });
 
   return (
     <div className="flex justify-center h-[100vh] items-center">
@@ -58,12 +63,13 @@ const { mutate, isLoading } = useMutation({
             repeatPassword: "",
           }}
           onSubmit={(values) => {
+            setEmail(values.email)
             mutate({
               firstName: values.firstName,
               lastName: values.lastName,
               email: values.email,
               password: values.password,
-            })
+            });
           }}
           validationSchema={validationSchema}
         >
@@ -131,18 +137,18 @@ const { mutate, isLoading } = useMutation({
                       className="flex relative flex-col"
                     >
                       <label>Password</label>
-                        <input
-                          {...field}
-                          type={showPassword ? "text" : "password"}
-                          placeholder="Choose Password"
-                          className="border  rounded-md px-2 py-1"
-                        />
-                        <span
-                          className="absolute right-2 top-7 cursor-pointer"
-                          onClick={() => setShowPassword(!showPassword)}
-                        >
-                          {showPassword ? "🙈" : "👁️"}
-                        </span>
+                      <input
+                        {...field}
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Choose Password"
+                        className="border  rounded-md px-2 py-1"
+                      />
+                      <span
+                        className="absolute right-2 top-7 cursor-pointer"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? "🙈" : "👁️"}
+                      </span>
                       <h1 className="text-red-500">{meta.error}</h1>
                     </div>
                   )}
