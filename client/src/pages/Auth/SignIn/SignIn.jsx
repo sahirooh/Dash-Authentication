@@ -4,7 +4,7 @@ import { Formik, Form, Field } from "formik";
 import { object, string } from "yup";
 import { useMutation } from "react-query";
 import { signinUser } from "../../../api/query/userQuery";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "sonner";
 
 const validationSchema = object({
   email: string().required("Email is required").email("Email is invalid"),
@@ -22,7 +22,12 @@ const SignIn = () => {
     mutationFn: signinUser,
     onSuccess: (data) => {},
     onError: (error) => {
-      toast.error("An error occurred: " + error.message);
+      toast.error("An error occurred: " + error.message, {
+        position: "bottom-center",
+        closeButton: false,
+        description: "Please try again later",
+        theme: "colored",
+      });
     }
   })
 

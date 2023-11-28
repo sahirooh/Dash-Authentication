@@ -12,6 +12,7 @@ import NewPassword from './pages/Auth/NewPassword/NewPassword';
 import PasswordResetDone from './pages/Auth/PasswordResetDone/PasswordResetDone';
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { Toaster } from 'sonner';
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <Toaster richColors />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

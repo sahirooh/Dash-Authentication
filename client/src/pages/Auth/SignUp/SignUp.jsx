@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { object, string, ref } from "yup";
+import { useMutation } from "react-query";
+import { toast } from "sonner";
+import { signupUser } from "../../../api/query/userQuery";
 
 const validationSchema = object({
   firstName: string().required("First Name is required"),
@@ -18,6 +21,23 @@ const validationSchema = object({
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+const { mutate, isLoading } = useMutation({
+  mutationKey: ["signup"],
+  mutationFn: signupUser,
+  onSuccess: (data) => {
+    navigate("/verify-email");
+  },
+  onError: (error) => {
+    toast.error("An error occurred: " + error.message, {
+      position: "bottom-center",
+      closeButton: false,
+      description: "Please try again later",
+      theme: "colored",
+    });
+  },
+});
 
   return (
     <div className="flex justify-center h-[100vh] items-center">
@@ -38,7 +58,12 @@ const SignUp = () => {
             repeatPassword: "",
           }}
           onSubmit={(values) => {
-            console.log(values);
+            mutate({
+              firstName: values.firstName,
+              lastName: values.lastName,
+              email: values.email,
+              password: values.password,
+            })
           }}
           validationSchema={validationSchema}
         >
@@ -155,6 +180,7 @@ const SignUp = () => {
                 <div className="flex justify-center">
                   <button
                     type="submit"
+                    isLoading={isLoading}
                     className="bg-purple-600 text-white flex-grow rounded-lg p-2"
                   >
                     Create Account
