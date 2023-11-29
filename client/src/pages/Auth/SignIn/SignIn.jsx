@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { object, string } from "yup";
 import { useMutation } from "react-query";
@@ -16,11 +16,14 @@ const validationSchema = object({
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const {mutate, isLoading} = useMutation({
     mutationKey: ["signin"],
     mutationFn: signinUser,
-    onSuccess: (data) => {},
+    onSuccess: (data) => {
+      navigate("/");
+    },
     onError: (error) => {
       toast.error("An error occurred: " + error.message, {
         position: "bottom-center",

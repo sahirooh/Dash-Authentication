@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { IoMdMail } from 'react-icons/io'
 import { useMutation } from 'react-query';
-import { useLocation } from 'react-router-dom';
-import { verifyEmail } from '../../../api/query/userQuery';
+import { useParams } from 'react-router-dom';
+import { sendVerificationMail } from '../../../api/query/userQuery';
+import { toast } from 'sonner';
 
 const VerifyEmail = () => {
 
-  const location = useLocation();
-  const email = location.state?.email ?? "";
+  const {email} = useParams();
 
   if (!email) {
     return <div className='h-[100vh] items-center justify-center'>Invalid Email</div>
@@ -15,7 +15,7 @@ const VerifyEmail = () => {
 
   const { mutate, isLoading } = useMutation({
     mutationKey: ["verify-email"],
-    mutationFn: verifyEmail,
+    mutationFn: sendVerificationMail,
     onSettled: (data) => {
       console.log(data);
     },

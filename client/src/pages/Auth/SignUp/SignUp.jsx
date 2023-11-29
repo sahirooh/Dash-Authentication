@@ -29,9 +29,7 @@ const SignUp = () => {
     onSuccess: (data) => {
       
       if (email) {
-        navigate("/verify-email", {
-          state: { email },
-        });
+        navigate(`/verify-email/${email}`);
       }
     },
     onError: (error) => {
