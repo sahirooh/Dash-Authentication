@@ -76,17 +76,17 @@ const RecoverPassword = () => {
                   </div>
                 )}
               </Field>
-        <button
-          type="submit"
-          isLoading={isLoading}
-          className="bg-purple-500 w-full text-white mt-2 rounded-lg py-2"
-        >
-          Reset Password
-        </button>
+      
+              <button
+                type="submit"
+                isLoading={isLoading}
+                className="bg-purple-500 w-full text-white mt-2 rounded-lg py-2"
+              >
+                Reset Password
+              </button>
             </Form>
           )}
         </Formik>
-
       </div>
     </div>
   );
