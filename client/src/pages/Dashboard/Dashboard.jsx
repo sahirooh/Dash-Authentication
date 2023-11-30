@@ -6,6 +6,8 @@ import Transactions from "./Components/Transactions";
 import InfoCard from "./Components/InfoCard";
 import { fetchExample } from "../../api/query/exampleQuery";
 import { useQuery } from "react-query";
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Dashboard = () => {
 
