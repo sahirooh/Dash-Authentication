@@ -5,6 +5,7 @@ import { object, string } from "yup";
 import { useMutation } from "react-query";
 import { signinUser } from "../../../api/query/userQuery";
 import { toast } from "sonner";
+import useAuth from "../../../hooks/useAuth";
 
 const validationSchema = object({
   email: string().required("Email is required").email("Email is invalid"),
@@ -17,12 +18,18 @@ const validationSchema = object({
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const {login} = useAuth();
 
   const {mutate, isLoading} = useMutation({
     mutationKey: ["signin"],
     mutationFn: signinUser,
     onSuccess: (data) => {
-      navigate("/");
+      
+      const {token} = data;
+
+      if(token){
+        login(token);
+      }
     },
     onError: (error) => {
       toast.error("An error occurred: " + error.message, {
