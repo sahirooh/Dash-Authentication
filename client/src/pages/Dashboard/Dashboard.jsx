@@ -16,7 +16,6 @@ const exampleQuery = useQuery({
   queryFn: fetchExample,
 })
 
-if (exampleQuery.isLoading) return <div>Loading...</div>
 
 
   return (
